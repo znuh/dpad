@@ -1,6 +1,7 @@
-#include "sdl_display.h"
 #include <stdio.h>
+#include <time.h>
 #include <assert.h>
+#include "sdl_display.h"
 
 extern struct sdl_ctx sdl;
 
@@ -61,6 +62,7 @@ void loop() {
 
 int main(int argc, char **argv)
 {
+	char fnbuf[32];
 	int i;
 	
 	sdl_init(1024, 600);
@@ -73,6 +75,9 @@ int main(int argc, char **argv)
 	SDL_Flip(sdl.screen);
 	
 	loop();
+	
+	sprintf(fnbuf,"dpad_%ld.bmp",(unsigned long)time(NULL));
+	SDL_SaveBMP(sdl.screen, fnbuf);
 	
 	return 0;
 }
